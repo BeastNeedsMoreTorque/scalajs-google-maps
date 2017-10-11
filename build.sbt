@@ -5,7 +5,12 @@ import sbt.Keys._
 sonatypeSettings
 
 lazy val root = project.in(file(".")).
-  enablePlugins(ScalaJSPlugin)
+  enablePlugins(ScalaJSPlugin).settings(
+	  //credentials += Credentials(Path.userHome / ".ivy2" / ".credentials"),
+	  //resolvers += "NextWave Repo" at "http://maxdevmaster.cloudapp.net:4343/artifactory/nxtwv-maven/",
+	  //publishTo := Some("NextWave Repo" at "http://maxdevmaster.cloudapp.net:4343/artifactory/nxtwv-maven/")
+	  publishMavenStyle := true
+	)
 
 lazy val demo = (project in file("demo"))
   .settings(demoSettings:_*)
@@ -13,11 +18,14 @@ lazy val demo = (project in file("demo"))
   .dependsOn(root)
 
 
+val scalaV = "2.12.2"
+val scalajsDomV = "0.9.1"
+
 lazy val demoSettings = Seq(
   name := s"gmap-demo",
-  scalaVersion := "2.11.6",
+  scalaVersion := scalaV,
   libraryDependencies ++= Seq(
-    "org.scala-js" %%% "scalajs-dom" % "0.8.0"
+    "org.scala-js" %%% "scalajs-dom" % scalajsDomV
   )
 )
 
@@ -25,19 +33,17 @@ name := "Type-safe and Scala-friendly library over Google Maps"
 
 normalizedName := "scalajs-google-maps"
 
-version := "0.1-SNAPSHOT"
+version := "0.0.3"
 
 organization := "io.surfkit"
 
-scalaVersion := "2.11.6"
+scalaVersion := scalaV
 
-crossScalaVersions := Seq("2.10.4", "2.11.5")
+crossScalaVersions := Seq("2.10.4", "2.11.5", scalaV)
 
 libraryDependencies ++= Seq(
-  "org.scala-js" %%% "scalajs-dom" % "0.8.0"
+  "org.scala-js" %%% "scalajs-dom" % scalajsDomV
 )
-
-//jsDependencies += "org.webjars" % "flux"                 % "2.0.2" / "Flux.js"
 
 jsDependencies in Test += RuntimeDOM
 
@@ -49,6 +55,7 @@ scmInfo := Some(ScmInfo(
     url("https://github.com/coreyauger/scalajs-google-maps"),
     "scm:git:git@github.com/coreyauger/scalajs-google-maps.git",
     Some("scm:git:git@github.com:coreyauger/scalajs-google-maps.git")))
+
 
 publishMavenStyle := true
 

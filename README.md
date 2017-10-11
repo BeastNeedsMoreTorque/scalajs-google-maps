@@ -19,7 +19,9 @@ To get started you will need a google maps api key.  You can [get an api key her
 ### Build.sbt
 Add the following dependency to your porject.
 
-`"io.surfkit" %%% "scalajs-google-maps" % "0.1-SNAPSHOT",`
+`resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"`
+
+`"io.surfkit" %%% "scalajs-google-maps" % "0.0.3-SNAPSHOT",`
 
 ## Some Examples
 Here are some of the google maps examples demonstrated in a type safe scalaJS way.
